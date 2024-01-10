@@ -1,23 +1,23 @@
 
-import streamlit as st
-import pandas as pd
-from sqlalchemy import create_engine
-import requests
-import plotly.express as px
-import random
-import time
+import streamlit as st                                                          # Webanwendung
+import pandas as pd                                                             # Datenalayse / Datenmanipulation
+from sqlalchemy import create_engine                                            # Datenbank Verwalten / Abfragen
+import requests                                                                 # Http Anragen Senden / Empfangen
+import plotly.express as px                                                     # Datenvisualisierung
+import random                                                                   # Zufalls Movie 
+import time                                                                     # Countdown
  
 # API-Informationen für TheMovieDB
-api_key = '20f06120887f0b5a9124cb4f2713a9a7'
-base_url = 'https://api.themoviedb.org/3'
+api_key = '20f06120887f0b5a9124cb4f2713a9a7'                                    # Mein Zugriffsschlüssel 
+base_url = 'https://api.themoviedb.org/3'                                       # Webseite
  
 # MySQL-Verbindungsinformationen
 host = 'localhost'
-user = 'root'
+user = 'root'                                                                    # Verbindung MySQL
 password = '12345'
 database = 'movies_metadata'
  
-# Verbindung zur MySQL-Datenbank herstellen
+# Verbindung zur MySQL-Datenbank herstellen, Abfragen Ausführen
 engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{host}/{database}")
  
 # Laden der Daten aus der MySQL-Datenbank
@@ -74,23 +74,6 @@ def page_budget_slider(df):
  
     st.plotly_chart(fig)
  
-# Seite 3: Die 3 erfolgreichsten Filme nach Genres
-# Liste der zu entfernenden Strings aus den Genres
-remove_strings = [
-    'id', 'name Aniplex', 'name BROSTA TV', 'name Carousel Productions',
-    'name Mardock Scramble Production Committee', 'name Odyssey Media',
-    'name Pulser Productions', 'name Rogue State', 'name Telescene Film Group Productions',
-    'name The Cartel', 'name Vision View Entertainment'
-]
- 
-# Seite 3: Die 3 erfolgreichsten Filme nach Genres
-remove_strings = [
-    'id', 'name Aniplex', 'name BROSTA TV', 'name Carousel Productions',
-    'name Mardock Scramble Production Committee', 'name Odyssey Media',
-    'name Pulser Productions', 'name Rogue State', 'name Telescene Film Group Productions',
-    'name The Cartel', 'name Vision View Entertainment'
-]
- 
 
 # Seite 3: Die 3 erfolgreichsten Filme nach Genres
 def page_top_genres(df):
@@ -109,7 +92,7 @@ def page_top_genres(df):
         # Anzeigen der Filme in zwei Zeilen für gleiche Höhe der Bilder
         col1, col2 = st.columns(2)
         for index, movie in enumerate(genre_df.iterrows()):
-            movie_data = movie[1]
+            movie_data = movie[1]                                                           
             poster_path = get_movie_poster(movie_data['original_title'])
             # Wechsel zwischen den zwei Spalten
             col = col1 if index % 2 == 0 else col2
